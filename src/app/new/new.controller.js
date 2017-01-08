@@ -27,8 +27,7 @@ angular.module('Metanome')
                                    InputStore,
                                    AvailableAlgorithmFiles,
                                    AvailableInputFiles,
-                                   Delete,
-                                   StopExecution
+                                   Delete
   ) {
 
     // ** VARIABLE DEFINITIONS **
@@ -800,6 +799,8 @@ angular.module('Metanome')
     }
 
 
+
+    //TODO:Rewrite function
     /**
      * Executes an algorithm.
      * Start a timer for the algorithm execution.
@@ -836,9 +837,9 @@ angular.module('Metanome')
       $scope.canceled = false;
       $scope.cancelFunction = function () {
         $scope.canceled = true
-      };
+      };/*
       ngDialog.openConfirm({
-                             /*jshint multistr: true */
+                             /!*jshint multistr: true *!/
                              template: '\
                 <h3>Execution running</h3>\
                 <timer interval="1000">Elapsed time: {{days}} days, {{hours}} hour{{hoursS}}, {{minutes}} minute{{minutesS}}, {{seconds}} second{{secondsS}}.</timer>\
@@ -859,21 +860,25 @@ angular.module('Metanome')
                                  })
                                }
                              }]
-                           });
+                           });*/
       AlgorithmExecution.run({}, payload, function (result) {
-        var typeStr = '&ind=' + result.algorithm.ind + '&fd=' + result.algorithm.fd + '&ucc=' + result.algorithm.ucc +
+        var url = '&ind=' + result.algorithm.ind + '&fd=' + result.algorithm.fd + '&ucc=' + result.algorithm.ucc +
                       '&cucc=' + result.algorithm.cucc + '&od=' + result.algorithm.od + '&mvd=' + result.algorithm.mvd +
                       '&basicStat=' + result.algorithm.basicStat;
-        ngDialog.closeAll();
+
+
         if (!$scope.canceled) {
           if (caching === 'cache' || caching === 'disk') {
-            $location.url('/result/' + result.id + '?cached=true' + typeStr);
+            url = '/result/' + result.id + '?cached=true' + url;
+
           } else {
-            $location.url('/result/' + result.id + '?count=true' + typeStr);
+             url = '/result/' + result.id + '?count=true' + url;
           }
+          notificationSuccess(result,url);
         }
+
+
       }, function (errorMessage) {
-        ngDialog.closeAll();
         openError('The algorithm execution was not successful: ' + errorMessage.data);
       })
     }
@@ -1184,6 +1189,13 @@ angular.module('Metanome')
     // ***
     // Helper
     // ***
+
+    function notificationSuccess(result,url) {
+      toastr.info('<a href=\"' + url + '\">Show Results!</a>', 'Execution of Algorithm' + result.algorithm.name + 'successful!', {
+        allowHtml: true,
+        closeButton: true
+      });
+    }
 
     /**
      * Stars the spinner
@@ -1577,7 +1589,6 @@ angular.module('Metanome')
     $scope.InputStore = InputStore;
     $scope.AvailableAlgorithmFiles = AvailableAlgorithmFiles;
     $scope.AvailableInputFiles = AvailableInputFiles;
-    $scope.StopExecution = StopExecution;
     $scope.doneEditingDatasources = doneEditingDatasources;
 
 
