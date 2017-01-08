@@ -15,7 +15,7 @@ var app = angular.module('Metanome')
       })
   });
 
-app.controller('HistoryCtrl', function ($scope, $log, Executions, $filter, $location, ngDialog, $timeout, Delete, StopExecutions, usSpinnerService) {
+app.controller('HistoryCtrl', function ($scope, $log, Executions, $filter, $location, ngDialog, $timeout, Delete, StopExecution, usSpinnerService) {
 
   // ** VARIABLE DEFINITIONS **
   // **************************
