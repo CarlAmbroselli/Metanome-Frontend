@@ -862,6 +862,7 @@ angular.module('Metanome')
                                }
                              }]
                            });*/
+      ngDialog.closeAll()
       AlgorithmExecution.run({}, payload, function (result) {
         var url = '&ind=' + result.algorithm.ind + '&fd=' + result.algorithm.fd + '&ucc=' + result.algorithm.ucc +
                       '&cucc=' + result.algorithm.cucc + '&od=' + result.algorithm.od + '&mvd=' + result.algorithm.mvd +
@@ -870,10 +871,10 @@ angular.module('Metanome')
 
         if (!$scope.canceled) {
           if (caching === 'cache' || caching === 'disk') {
-            url = $location.url('/result/' + result.id + '?cached=true' + url);
+            url = '#/result/' + result.id + '?cached=true' + url;
 
           } else {
-             url = $location.url('/result/' + result.id + '?count=true' + url);
+             url = '#/result/' + result.id + '?count=true' + url;
           }
           notificationSuccess(result,url);
         }
@@ -1195,7 +1196,7 @@ angular.module('Metanome')
       toastr.success('<a href=\"' + url + '\">Show Results!</a>', 'Execution of Algorithm ' + result.algorithm.name + ' successful!', {
         allowHtml: true,
         closeButton: true,
-        positionClass: toast-top-full-width
+        positionClass: 'toast-top-full-width'
       });
     }
 
