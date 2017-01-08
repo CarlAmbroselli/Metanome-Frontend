@@ -1195,7 +1195,7 @@ angular.module('Metanome')
       toastr.success('<a href=\"' + url + '\">Show Results!</a>', 'Execution of Algorithm ' + result.algorithm.name + ' successful!', {
         allowHtml: true,
         closeButton: true,
-        positionClass: 'toast-top-full-width'
+        positionClass: toast-top-full-width
       });
     }
 
