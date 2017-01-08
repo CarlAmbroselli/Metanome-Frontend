@@ -193,8 +193,8 @@ app.controller('HistoryCtrl', function ($scope, $log, Executions, $filter, $loca
 
     $scope.confirmFunction = function () {
       $scope.startSpin();
-      $scope.cancelFunction();
       StopExectuion.stop({id: $scope.confirmItem.id}, function () {
+        $scope.cancelFunction();
         $scope.loadExecutions()
       });
       $scope.stopSpin();

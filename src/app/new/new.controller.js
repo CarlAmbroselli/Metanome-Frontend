@@ -27,7 +27,8 @@ angular.module('Metanome')
                                    InputStore,
                                    AvailableAlgorithmFiles,
                                    AvailableInputFiles,
-                                   Delete
+                                   Delete,
+                                   toastr
   ) {
 
     // ** VARIABLE DEFINITIONS **
