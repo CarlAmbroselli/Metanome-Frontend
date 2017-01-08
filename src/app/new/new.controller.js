@@ -870,10 +870,10 @@ angular.module('Metanome')
 
         if (!$scope.canceled) {
           if (caching === 'cache' || caching === 'disk') {
-            url = '/result/' + result.id + '?cached=true' + url;
+            url = $location.url('/result/' + result.id + '?cached=true' + url);
 
           } else {
-             url = '/result/' + result.id + '?count=true' + url;
+             url = $location.url('/result/' + result.id + '?count=true' + url);
           }
           notificationSuccess(result,url);
         }
@@ -1192,11 +1192,14 @@ angular.module('Metanome')
     // ***
 
     function notificationSuccess(result,url) {
-      toastr.info('<a href=\"' + url + '\">Show Results!</a>', 'Execution of Algorithm' + result.algorithm.name + 'successful!', {
+      toastr.success('<a href=\"' + url + '\">Show Results!</a>', 'Execution of Algorithm ' + result.algorithm.name + ' successful!', {
         allowHtml: true,
-        closeButton: true
+        closeButton: true,
+        positionClass: 'toast-top-full-width'
       });
     }
+
+
 
     /**
      * Stars the spinner
