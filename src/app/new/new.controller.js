@@ -838,7 +838,10 @@ angular.module('Metanome')
       $scope.canceled = false;
       $scope.cancelFunction = function () {
         $scope.canceled = true
-      };/*
+      };
+
+      notificationInformation();
+      /*
       ngDialog.openConfirm({
                              /!*jshint multistr: true *!/
                              template: '\
@@ -862,7 +865,6 @@ angular.module('Metanome')
                                }
                              }]
                            });*/
-      ngDialog.closeAll()
       AlgorithmExecution.run({}, payload, function (result) {
         var url = '&ind=' + result.algorithm.ind + '&fd=' + result.algorithm.fd + '&ucc=' + result.algorithm.ucc +
                       '&cucc=' + result.algorithm.cucc + '&od=' + result.algorithm.od + '&mvd=' + result.algorithm.mvd +
@@ -881,7 +883,7 @@ angular.module('Metanome')
 
 
       }, function (errorMessage) {
-        openError('The algorithm execution was not successful: ' + errorMessage.data);
+            notificationError(errorMessage);
       })
     }
 
@@ -1191,10 +1193,27 @@ angular.module('Metanome')
     // ***
     // Helper
     // ***
+    function notificationInformation() {
+      toastr.success('Execution of algorithm ', 'Algorithm execution started!', {
+        closeButton: true,
+        positionClass: 'toast-top-full-width'
+      });
+    }
 
+
+    app.controller('foo', function($scope, toastr) {
+      toastr.info('We are open today from 10 to 22', 'Information');
+    });
     function notificationSuccess(result,url) {
       toastr.success('<a href=\"' + url + '\">Show Results!</a>', 'Execution of Algorithm ' + result.algorithm.name + ' successful!', {
         allowHtml: true,
+        closeButton: true,
+        positionClass: 'toast-top-full-width'
+      });
+    }
+
+    function notificationError(errormessage) {
+      toastr.error('During the algorithm execution following error occured: ' + errormessage.data, 'An Error occured!', {
         closeButton: true,
         positionClass: 'toast-top-full-width'
       });
