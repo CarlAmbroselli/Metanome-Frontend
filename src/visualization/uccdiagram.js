@@ -28,9 +28,16 @@ function initializeUCCDiagram(target_id, cluster_nr) {
     return http.status != 404;
   }
 
+
+  /**
+   * Import dynamical generated Metanome.config constants for URL to API
+   */
+  var config = require("../app/scripts/config.js");
+
   var data_url = "UCCResultAnalyzer/UCCData.json";
+
   if (!UrlExists(data_url)) {
-    data_url = "http://localhost:8081/src/visualization/UCCResultAnalyzer/UCCData.json";
+    data_url = config.ENV_VARS.API + "/src/visualization/UCCResultAnalyzer/UCCData.json";
   }
 
   d3.json(data_url, function (data) {

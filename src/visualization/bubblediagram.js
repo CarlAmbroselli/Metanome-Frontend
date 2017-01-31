@@ -2,6 +2,13 @@
 function initializeClusterDiagram(target_id, second_target_id) {
   var bubbleplot = dimple.newSvg(target_id, 570, 400);
 
+
+  /**
+   * Import dynamical generated Metanome.config constants for URL to API
+   */
+  var config = require("../app/scripts/config.js");
+
+
   /**
    * @return {boolean}
    */
@@ -14,7 +21,7 @@ function initializeClusterDiagram(target_id, second_target_id) {
 
   var data_url = "UCCResultAnalyzer/UCCClusters.json";
   if (!UrlExists(data_url)) {
-    data_url = "http://localhost:8081/src/visualization/UCCResultAnalyzer/UCCClusters.json";
+    data_url = config.ENV_VARS.API + "/src/visualization/UCCResultAnalyzer/UCCClusters.json";
   }
 
   d3.json(data_url, function (data) {

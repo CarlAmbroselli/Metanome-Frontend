@@ -29,9 +29,16 @@
     }
 
     function draw() {
+
+      /**
+       * Import dynamical generated Metanome.config constants for URL to API
+       */
+      var config = require("../app/scripts/config.js");
+
       var data_url = "FDResultAnalyzer/PrefixTree.json";
+
       if (!UrlExists(data_url)) {
-        data_url = "http://localhost:8081/src/visualization/FDResultAnalyzer/PrefixTree.json";
+        data_url = config.ENV_VARS.API + "/src/visualization/FDResultAnalyzer/PrefixTree.json";
       }
       d3_zoomable_sunburst(data_url,
         $(window).width() - 25,
